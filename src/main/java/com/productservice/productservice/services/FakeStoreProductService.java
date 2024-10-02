@@ -1,7 +1,6 @@
 package com.productservice.productservice.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -11,13 +10,17 @@ import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
     private RestTemplateBuilder restTemplateBuilder;
     private String getProductUrl = "https://fakestoreapi.com/products/1";
+    private String getAllProduct = "https://fakestoreapi.com/products";
 
     FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
@@ -31,51 +34,34 @@ public class FakeStoreProductService implements ProductService{
         genericProductDTO.setDescription(fakeStoreProductDto.getDescription());
         genericProductDTO.setTitle(fakeStoreProductDto.getTitle());
         genericProductDTO.setPrice(fakeStoreProductDto.getPrice());
-//what we are returbinn.ljhghjkl
         return genericProductDTO;
     }
+
     @Override
     public GenericProductDTO getProductById(Long id) {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(getProductUrl, FakeStoreProductDto.class);
 
-//convert fakstoreproductDTO to genericproduct DTO before returning
-
+       //convert fakstoreproductDTO to genericproduct DTO before returning
 
         return convertToGenericProductDTO(responseEntity.getBody());
     }
 
-//    @Override
-//    public FakeStoreProductDto getProductById(Long id) {
-//        RestTemplate restTemplate = restTemplateBuilder.build();
-//        // Modify the URL to include the product ID
-//        String url = getProductUrl + id;
-//
-//        try {
-//            // Fetch the response as a String
-//            ResponseEntity<String> responseEntity = restTemplate.getForEntity(url, String.class);
-//
-//            if (responseEntity.getStatusCode() == HttpStatus.OK) {
-//                String jsonResponse = responseEntity.getBody();
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                // Manually convert the JSON string to your DTO
-//                FakeStoreProductDto product = objectMapper.readValue(jsonResponse, FakeStoreProductDto.class);
-//                return product;
-//            } else {
-//                throw new RuntimeException("Failed to fetch product. HTTP Status: " + responseEntity.getStatusCode());
-//            }
-//
-//        } catch (Exception e) {
-//            logger.error("Error while fetching product with ID " + id, e);
-//            throw new RuntimeException("Error while fetching product with ID " + id, e);
-//        }
-//    }
 
 
 
     @Override
-    public void getAllProducts() {
-
+    public List<GenericProductDTO> getAllProducts() {
+        List<GenericProductDTO> resultList = new ArrayList<>();
+      RestTemplate restTemplate = restTemplateBuilder.build();
+     ResponseEntity<FakeStoreProductDto[]> responseEntityAllProduct = restTemplate.getForEntity(getAllProduct,FakeStoreProductDto[].class);
+        FakeStoreProductDto[] responseAllProductBody =   responseEntityAllProduct.getBody();
+        List<FakeStoreProductDto> productList = Arrays.asList(responseAllProductBody);
+        int size = productList.size();
+        for(int i  = 0 ; i < size ; i++){
+           resultList.add(convertToGenericProductDTO(productList.get(i)));
+        }
+        return resultList;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.productservice.productservice.services;
 
-import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service("selfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService{
@@ -12,8 +13,8 @@ public class SelfProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void getAllProducts() {
-
+    public List<GenericProductDTO> getAllProducts() {
+      return null;
     }
 
     @Override

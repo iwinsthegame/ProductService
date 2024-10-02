@@ -1,7 +1,6 @@
 package com.productservice.productservice.Controller;
 
 
-import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import com.productservice.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -31,8 +32,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public void getAllProducts(){
-
+    public List<GenericProductDTO> getAllProducts(){
+        return  productService.getAllProducts();
     }
 
     public void deleteProductById(){

@@ -5,9 +5,11 @@ import com.productservice.productservice.dtos.GenericProductDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 public interface ProductService {
     GenericProductDTO getProductById(Long id);
-    void getAllProducts();
+    List<GenericProductDTO> getAllProducts();
     void deleteProductById();
     void createProduct();
     public void updateProductById();
