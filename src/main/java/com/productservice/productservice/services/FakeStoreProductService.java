@@ -61,7 +61,8 @@ public class FakeStoreProductService implements ProductService{
         for(int i  = 0 ; i < size ; i++){
            resultList.add(convertToGenericProductDTO(productList.get(i)));
         }
-        return resultList;
+
+    return resultList;
     }
 
     @Override
@@ -70,8 +71,11 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public void createProduct() {
+    public GenericProductDTO createProduct(FakeStoreProductDto fakeStoreProductDto) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+       ResponseEntity<FakeStoreProductDto> responseEntity  = restTemplate.postForEntity(getAllProduct,fakeStoreProductDto, FakeStoreProductDto.class);
 
+        return convertToGenericProductDTO(responseEntity.getBody());
     }
 
     @Override

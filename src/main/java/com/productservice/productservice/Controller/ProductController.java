@@ -1,14 +1,12 @@
 package com.productservice.productservice.Controller;
 
 
+import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import com.productservice.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,7 +37,9 @@ public class ProductController {
     public void deleteProductById(){
 
     }
-    public void createProduct(){
+    @PostMapping("/create")
+    public FakeStoreProductDto createProduct(@RequestBody FakeStoreProductDto fakeStoreProductDto){
+    return productService.createProduct(fakeStoreProductDto);
 
     }
 
