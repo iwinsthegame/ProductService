@@ -31,7 +31,7 @@ public class FakeStoreProductService implements ProductService{
         genericProductDTO.setDescription(fakeStoreProductDto.getDescription());
         genericProductDTO.setTitle(fakeStoreProductDto.getTitle());
         genericProductDTO.setPrice(fakeStoreProductDto.getPrice());
-
+//what we are returbinn.ljhghjkl
         return genericProductDTO;
     }
     @Override
