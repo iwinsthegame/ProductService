@@ -19,7 +19,7 @@ import java.util.List;
 public class FakeStoreProductService implements ProductService{
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
     private RestTemplateBuilder restTemplateBuilder;
-    private String getProductUrl = "https://fakestoreapi.com/products/1";
+    private String getProductUrl = "https://fakestoreapi.com/products/{id}";
     private String getAllProduct = "https://fakestoreapi.com/products";
 
     FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
@@ -40,7 +40,7 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public GenericProductDTO getProductById(Long id) {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(getProductUrl, FakeStoreProductDto.class);
+        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.getForEntity(getProductUrl, FakeStoreProductDto.class,id);
 
        //convert fakstoreproductDTO to genericproduct DTO before returning
 
@@ -67,15 +67,15 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public void deleteProductById() {
-
     }
 
     @Override
-    public GenericProductDTO createProduct(FakeStoreProductDto fakeStoreProductDto) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-       ResponseEntity<FakeStoreProductDto> responseEntity  = restTemplate.postForEntity(getAllProduct,fakeStoreProductDto, FakeStoreProductDto.class);
-
-        return convertToGenericProductDTO(responseEntity.getBody());
+    public void createProduct() {
+ //  public void createProduct(FakeStoreProductDto fakeStoreProductDto) {
+//        RestTemplate restTemplate = restTemplateBuilder.build();
+//        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.postForEntity(getAllProduct, fakeStoreProductDto, FakeStoreProductDto.class);
+//
+//        return convertToGenericProductDTO(responseEntity.getBody());
     }
 
     @Override

@@ -38,8 +38,8 @@ public class ProductController {
 
     }
     @PostMapping("/create")
-    public FakeStoreProductDto createProduct(@RequestBody FakeStoreProductDto fakeStoreProductDto){
-    return productService.createProduct(fakeStoreProductDto);
+    public void createProduct(@RequestBody FakeStoreProductDto fakeStoreProductDto){
+//    return productService.createProduct(fakeStoreProductDto);
 
     }
 
