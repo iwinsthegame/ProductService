@@ -37,9 +37,9 @@ public class ProductController {
     public void deleteProductById(){
 
     }
-    @PostMapping("/create")
-    public void createProduct(@RequestBody FakeStoreProductDto fakeStoreProductDto){
-//    return productService.createProduct(fakeStoreProductDto);
+    @PostMapping
+    public GenericProductDTO createProduct(@RequestBody GenericProductDTO genericProductDTO){
+      return productService.createProduct(genericProductDTO);
 
     }
 

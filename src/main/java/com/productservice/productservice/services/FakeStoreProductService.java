@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,7 +19,7 @@ public class FakeStoreProductService implements ProductService{
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
     private RestTemplateBuilder restTemplateBuilder;
     private String getProductUrl = "https://fakestoreapi.com/products/{id}";
-    private String getAllProduct = "https://fakestoreapi.com/products";
+    private String genericProducturl = "https://fakestoreapi.com/products";
 
     FakeStoreProductService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
@@ -54,13 +53,17 @@ public class FakeStoreProductService implements ProductService{
     public List<GenericProductDTO> getAllProducts() {
         List<GenericProductDTO> resultList = new ArrayList<>();
       RestTemplate restTemplate = restTemplateBuilder.build();
-     ResponseEntity<FakeStoreProductDto[]> responseEntityAllProduct = restTemplate.getForEntity(getAllProduct,FakeStoreProductDto[].class);
-        FakeStoreProductDto[] responseAllProductBody =   responseEntityAllProduct.getBody();
-        List<FakeStoreProductDto> productList = Arrays.asList(responseAllProductBody);
-        int size = productList.size();
-        for(int i  = 0 ; i < size ; i++){
-           resultList.add(convertToGenericProductDTO(productList.get(i)));
+     ResponseEntity<FakeStoreProductDto[]> responseEntityAllProduct = restTemplate.getForEntity(genericProducturl,FakeStoreProductDto[].class);
+        List<FakeStoreProductDto> productList = List.of(responseEntityAllProduct.getBody());
+        //FakeStoreProductDto[] responseAllProductBody =   responseEntityAllProduct.getBody();
+       // List<FakeStoreProductDto> productList = Arrays.asList(responseAllProductBody);
+        for(FakeStoreProductDto fakeStoreProductDto : productList){
+            resultList.add(convertToGenericProductDTO(fakeStoreProductDto));
         }
+//        int size = productList.size();
+//        for(int i  = 0 ; i < size ; i++){
+//           resultList.add(convertToGenericProductDTO(productList.get(i)));
+//        }
 
     return resultList;
     }
@@ -70,12 +73,10 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public void createProduct() {
- //  public void createProduct(FakeStoreProductDto fakeStoreProductDto) {
-//        RestTemplate restTemplate = restTemplateBuilder.build();
-//        ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.postForEntity(getAllProduct, fakeStoreProductDto, FakeStoreProductDto.class);
-//
-//        return convertToGenericProductDTO(responseEntity.getBody());
+    public GenericProductDTO createProduct(GenericProductDTO genericProductDTO) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+       ResponseEntity<FakeStoreProductDto> responseEntity = restTemplate.postForEntity(genericProducturl,genericProductDTO,FakeStoreProductDto.class);
+       return convertToGenericProductDTO(responseEntity.getBody());
     }
 
     @Override
