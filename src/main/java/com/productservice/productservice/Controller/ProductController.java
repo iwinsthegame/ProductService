@@ -6,6 +6,7 @@ import com.productservice.productservice.dtos.GenericProductDTO;
 import com.productservice.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +35,11 @@ public class ProductController {
         return  productService.getAllProducts();
     }
 
-    public void deleteProductById(){
+    @DeleteMapping("/{id}")
+    public GenericProductDTO deleteProductById(@PathVariable("id") Long id){
+         return  productService.deleteProductById(id);
 
+         // return ResponseEntity.noContent().build(); // Returning 204 No Content if successful
     }
     @PostMapping
     public GenericProductDTO createProduct(@RequestBody GenericProductDTO genericProductDTO){
@@ -43,7 +47,8 @@ public class ProductController {
 
     }
 
-    public void updateProductById(){
-
+    @PatchMapping("/{id}")
+    public GenericProductDTO updateProductById(@PathVariable("id") Long id , @RequestBody GenericProductDTO genericProductDTO){
+        return productService.updateProductById(id,genericProductDTO);
     }
 }
