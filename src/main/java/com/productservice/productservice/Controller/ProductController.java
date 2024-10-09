@@ -55,15 +55,15 @@ public class ProductController {
         return productService.updateProductById(id,genericProductDTO);
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    private ResponseEntity<ExceptionDto> handleProductNotFoundException(ProductNotFoundException productNotFoundException){
-       ExceptionDto exceptionDto = new ExceptionDto();
-       exceptionDto.setMessage(productNotFoundException.getMessage());
-       exceptionDto.setHttpStatus(HttpStatus.NOT_FOUND);
-        //System.out.println("got product not found exception");
-        //here the staus code is still 200 ok, so need to change the staus also , so what we can do it
-        ResponseEntity responseEntity = new ResponseEntity(exceptionDto,HttpStatus.NOT_FOUND);
-
-        return responseEntity;
-    }
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    private ResponseEntity<ExceptionDto> handleProductNotFoundException(ProductNotFoundException productNotFoundException){
+//       ExceptionDto exceptionDto = new ExceptionDto();
+//       exceptionDto.setMessage(productNotFoundException.getMessage());
+//       exceptionDto.setHttpStatus(HttpStatus.NOT_FOUND);
+//        //System.out.println("got product not found exception");
+//        //here the staus code is still 200 ok, so need to change the staus also , so what we can do it
+//        ResponseEntity responseEntity = new ResponseEntity(exceptionDto,HttpStatus.NOT_FOUND);
+//
+//        return responseEntity;
+//    }
 }
