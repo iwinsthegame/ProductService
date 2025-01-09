@@ -4,23 +4,22 @@ package com.productservice.productservice.services;
 import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import com.productservice.productservice.exception.ProductNotFoundException;
-import com.productservice.productservice.thirdPartyClients.fakeStoreClient.FakeStoreClientAdapter;
+import com.productservice.productservice.thirdPartyClients.fakeStoreClient.FakeStoreClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
-    private FakeStoreClientAdapter fakeStoreClientAdapter;
+    private FakeStoreClient fakeStoreClient;
 
-    FakeStoreProductService(FakeStoreClientAdapter fakeStoreClientAdapter){
-        this.fakeStoreClientAdapter = fakeStoreClientAdapter;
+    FakeStoreProductService(FakeStoreClient fakeStoreClient){
+        this.fakeStoreClient = fakeStoreClient;
     }
 
 
@@ -37,14 +36,14 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public GenericProductDTO getProductById(Long id) throws ProductNotFoundException {
-        return convertToGenericProductDTO(fakeStoreClientAdapter.getProductById(id));
+        return convertToGenericProductDTO(fakeStoreClient.getProductById(id));
     }
 
 
     @Override
     public List<GenericProductDTO> getAllProducts() {
 
-        List<FakeStoreProductDto> fakeStoreProductDtos = fakeStoreClientAdapter.getAllProducts();
+        List<FakeStoreProductDto> fakeStoreProductDtos = fakeStoreClient.getAllProducts();
         List<GenericProductDTO> genericProductDTOS = new ArrayList<>();
 
 
@@ -59,17 +58,17 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public GenericProductDTO deleteProductById(Long id) {
 
-        return convertToGenericProductDTO(fakeStoreClientAdapter.deleteProductById(id));
+        return convertToGenericProductDTO(fakeStoreClient.deleteProductById(id));
     }
 
     @Override
     public GenericProductDTO createProduct(GenericProductDTO genericProductDTO) {
-       return convertToGenericProductDTO(fakeStoreClientAdapter.createProduct(genericProductDTO));
+       return convertToGenericProductDTO(fakeStoreClient.createProduct(genericProductDTO));
     }
 
     @Override
     public GenericProductDTO updateProductById(Long id, GenericProductDTO genericProductDTO) {
 
-       return convertToGenericProductDTO(fakeStoreClientAdapter.updateProductById(id,genericProductDTO));
+       return convertToGenericProductDTO(fakeStoreClient.updateProductById(id,genericProductDTO));
     }
 }

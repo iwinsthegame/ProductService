@@ -4,8 +4,10 @@ import com.productservice.productservice.dtos.FakeStoreProductDto;
 import com.productservice.productservice.dtos.GenericProductDTO;
 import com.productservice.productservice.exception.ProductNotFoundException;
 import com.productservice.productservice.services.FakeStoreProductService;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +20,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FakeStoreClientAdapter {
+public class FakeStoreClient {
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
     private RestTemplateBuilder restTemplateBuilder;
-    private String specificProductUrl = "https://fakestoreapi.com/products/{id}";
+    @Value("${fakestore.api.url}")
+    private String fakeStoreUrl;
+    @Value("${fakestore.api.paths.products}")
+    private String pathForProducts;
+
+
+    private String specificProductUrl;
+
+
+    // private String specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
+    //As this is not working throwing some error , so we find the solution of using @postConstruct
+    // Add Dependency for javax.annotation
+//    <dependency>
+//    <groupId>javax.annotation</groupId>
+//    <artifactId>javax.annotation-api</artifactId>
+//    <version>1.3.2</version>
+//</dependency>
+    @PostConstruct
+    public void init() {
+        specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
+    }
+   // private String specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
+   // private String specificProductUrl = "https://fakestoreapi.com/products/{id}";
     private String genericProducturl = "https://fakestoreapi.com/products";
 
-    FakeStoreClientAdapter(RestTemplateBuilder restTemplateBuilder) {
+    FakeStoreClient(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
     }
 
