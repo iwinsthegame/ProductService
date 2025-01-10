@@ -23,13 +23,10 @@ import java.util.List;
 public class FakeStoreClient {
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
     private RestTemplateBuilder restTemplateBuilder;
-    @Value("${fakestore.api.url}")
     private String fakeStoreUrl;
-    @Value("${fakestore.api.paths.products}")
     private String pathForProducts;
-
-
     private String specificProductUrl;
+    private String genericProducturl;
 
 
     // private String specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
@@ -40,20 +37,23 @@ public class FakeStoreClient {
 //    <artifactId>javax.annotation-api</artifactId>
 //    <version>1.3.2</version>
 //</dependency>
-    @PostConstruct
-    public void init() {
-        specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
-    }
+
+
+    //other way around we can do it by intializing inside constructor , lest do it
+
+//    @PostConstruct
+//    public void init() {
+//         specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
+//    }
    // private String specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
    // private String specificProductUrl = "https://fakestoreapi.com/products/{id}";
-    private String genericProducturl = "https://fakestoreapi.com/products";
+  //  private String genericProducturl = "https://fakestoreapi.com/products";
 
-    FakeStoreClient(RestTemplateBuilder restTemplateBuilder) {
+    FakeStoreClient(RestTemplateBuilder restTemplateBuilder,@Value("${fakestore.api.url}") String fakeStoreUrl, @Value("${fakestore.api.paths.products}") String pathForProducts) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
+        this.genericProducturl = fakeStoreUrl + pathForProducts;
     }
-
-
-
 
     public FakeStoreProductDto getProductById(Long id) throws ProductNotFoundException {
         //here we are integrating fake stor product api
