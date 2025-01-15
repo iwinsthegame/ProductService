@@ -27,7 +27,7 @@ public class ProductServiceApplication implements CommandLineRunner {
         mentor.setName("Ravi");
 
         mentorRepository.save(mentor);
-
+        // doing for tableper claass
         //com.productservice.productservice.inheritancerelations.tableperclass.Mentor mentor1 = new com.productservice.productservice.inheritancerelations.tableperclass.Mentor();
     }
 }
