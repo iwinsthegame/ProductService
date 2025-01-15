@@ -10,4 +10,5 @@ import lombok.Setter;
 @Entity(name = "tpc_mentors")
 public class Mentor extends User {
     private double avgRating;
+    //lets discuss the plan
 }
