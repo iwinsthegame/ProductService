@@ -1,7 +1,13 @@
 package com.productservice.productservice;
 
-
-import com.productservice.productservice.inheritancerelations.tableperclass.*;
+//import com.productservice.productservice.inheritancerelations.singletable;
+//import com.productservice.productservice.inheritancerelations.tableperclass.*;
+import com.productservice.productservice.inheritancerelations.singletable.*;
+import com.productservice.productservice.inheritancerelations.tableperclass.UserRepository;
+import com.productservice.productservice.model.Category;
+import com.productservice.productservice.model.Product;
+import com.productservice.productservice.repositories.CategoryRepository;
+import com.productservice.productservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,20 +18,47 @@ import java.util.List;
 @SpringBootApplication
 public class ProductServiceApplication implements CommandLineRunner {
 
-    private final MentorRepository mentorRepository;
+    private final MentorsRepository mentorsRepository;
+    private final StudentRepository studentRepository;
+    private final TasRepository tasRepository;
 
-    private final StudentsRepository studentsRepository;
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
 
-//       ProductServiceApplication(@Qualifier("ms_mentorrepository") MentorRepository mentorRepository){
-//           this.mentorRepository =mentorRepository;
-//       }
+    public ProductServiceApplication(MentorsRepository mentorsRepository,
+                                     StudentRepository studentRepository,
+                                     TasRepository tasRepository,
 
-    ProductServiceApplication(@Qualifier("tpc_mentorrepository") MentorRepository mentorRepository, StudentsRepository studentsRepository, UserRepository userRepository) {
-        this.mentorRepository = mentorRepository;
-        this.studentsRepository = studentsRepository;
-        this.userRepository = userRepository;
+                                     UsersRepository usersRepository) {
+        this.mentorsRepository = mentorsRepository;
+        this.studentRepository = studentRepository;
+        this.tasRepository = tasRepository;
+
+        this.usersRepository = usersRepository;
     }
+
+//    private final CategoryRepository categoryRepository;
+//    private final ProductRepository productRepository;
+//
+//    public ProductServiceApplication(CategoryRepository categoryRepository,
+//                                     ProductRepository productRepository) {
+//        this.categoryRepository = categoryRepository;
+//        this.productRepository = productRepository;
+//    }
+
+//    private final MentorRepository mentorRepository;
+//
+//    private final StudentsRepository studentsRepository;
+//    private final UserRepository userRepository;
+//
+////       ProductServiceApplication(@Qualifier("ms_mentorrepository") MentorRepository mentorRepository){
+////           this.mentorRepository =mentorRepository;
+////       }
+//
+//    ProductServiceApplication(@Qualifier("tpc_mentorrepository") MentorRepository mentorRepository, StudentsRepository studentsRepository, UserRepository userRepository) {
+//        this.mentorRepository = mentorRepository;
+//        this.studentsRepository = studentsRepository;
+//        this.userRepository = userRepository;
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(ProductServiceApplication.class, args);
@@ -44,32 +77,62 @@ public class ProductServiceApplication implements CommandLineRunner {
         // doing for tableper claass
         //com.productservice.productservice.inheritancerelations.tableperclass.Mentor mentor1 = new com.productservice.productservice.inheritancerelations.tableperclass.Mentor();
 //ms_tableperclass
-        Mentor mentor = new Mentor();
-        mentor.setAvgRating(7.87);
-        mentor.setEmail("youavikumar21987@gmail.com");
-        mentor.setName("mehak");
+//        Mentor mentor = new Mentor();
+//        mentor.setAvgRating(7.87);
+//        mentor.setEmail("youavikumar21987@gmail.com");
+//        mentor.setName("mehak");
+//
+//        mentorRepository.save(mentor);
+//
+//        Student student = new Student();
+//        student.setName("halala");
+//        student.setEmail("bolojai@scaler.com");
+//        student.setPsp(99.45);
+//
+//        studentsRepository.save(student);
+//
+//        User user = new User();
+//        user.setEmail("kahonapyaar@scaler.com");
+//        user.setName("Hum hai n");
+//
+//        userRepository.save(user);
+//
+//
+//        //get all the user
+//        List<User> users = userRepository.findAll();
+//        for(User user1 : users){
+//            System.out.println(user1.toString());
+//        }
 
-        mentorRepository.save(mentor);
+
+        Mentor mentor = new Mentor();
+        mentor.setAvgRating(98.9);
+        mentorsRepository.save(mentor);
 
         Student student = new Student();
-        student.setName("halala");
-        student.setEmail("bolojai@scaler.com");
-        student.setPsp(99.45);
+        student.setPsp(99.9);
 
-        studentsRepository.save(student);
+        studentRepository.save(student);
+
+       Ta ta = new Ta();
+        ta.setTa_session("kar lo acche se kaam");
+        tasRepository.save(ta);
 
         User user = new User();
-        user.setEmail("kahonapyaar@scaler.com");
-        user.setName("Hum hai n");
+        user.setEmail("naam@scaler.com");
+        user.setName("pradhanmantri");
+        usersRepository.save(user);
 
-        userRepository.save(user);
-
-
-        //get all the user
-        List<User> users = userRepository.findAll();
-        for(User user1 : users){
-            System.out.println(user1.toString());
-        }
-
+//        Category category = new Category();
+//        category.setName("Apple device");
+//
+//        Category savedcategory = categoryRepository.save(category);
+//
+//        Product product = new Product();
+//        product.setTitle("iphone 16");
+//        product.setDescription("best iphone ever");
+//        product.setCategory(savedcategory);
+//
+//        Product productSaved = productRepository.save(product);
     }
 }
