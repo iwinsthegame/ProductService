@@ -181,7 +181,7 @@ public class ProductServiceApplication implements CommandLineRunner {
         Price price = new Price();
         price.setCurrency("INR");
         price.setValue(100000);
-        Price savePrice = priceRepository.save(price);
+       // Price savePrice = priceRepository.save(price);
 
         Category category = new Category();
         category.setName("Apple devices");
@@ -191,11 +191,23 @@ public class ProductServiceApplication implements CommandLineRunner {
         Product product = new Product();
         product.setTitle("iphone 15 pro");
         product.setDescription("Best iphone errrrr");
-        product.setCategory(category);
+        product.setCategory(savedCategory);
         product.setPrice(price);
 
        Product savedProduct = productRepository.save(product);
 
+    //   productRepository.deleteById(UUID.fromString("9b8af599-5ce1-455a-8374-a125e3a2b09b"));
+
+        //delete
+//        Optional<Price> OptionalPrice = priceRepository.findById(UUID.fromString("3f6fc4f8-2d57-4f9a-9f1d-36a1a1c04ef2"));
+//        if(OptionalPrice.isEmpty()){
+//            throw  new Exception("Price is Empty");
+//        }
+//
+//        Price price = OptionalPrice.get();
+        //now want to delete the price , should it be allowed ?
+     //   priceRepository.deleteById(UUID.fromString("3f6fc4f8-2d57-4f9a-9f1d-36a1a1c04ef2"));
+       //error got in console :  could not execute statement [Cannot delete or update a parent row: a foreign key constraint fails (`ravi_capstone`.`product`, CONSTRAINT `FK2l5ugesxirs8wp4iqcmji7g8m` FOREIGN KEY (`price_id`) REFERENCES `price` (`id`))] [delete from price where id=?]; SQL [delete from price where id=?]; constraint [null]
 
 
 //        Order order = new Order();
