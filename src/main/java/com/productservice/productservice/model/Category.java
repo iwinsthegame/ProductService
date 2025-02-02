@@ -19,7 +19,7 @@ public class Category extends BaseModel{
 
 
     //this is redudency ..this is duplicate relation
-    @OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
 }

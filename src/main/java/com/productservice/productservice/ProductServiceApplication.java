@@ -12,6 +12,7 @@ import com.productservice.productservice.repositories.CategoryRepository;
 import com.productservice.productservice.repositories.OrderRepository;
 import com.productservice.productservice.repositories.PriceRepository;
 import com.productservice.productservice.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,22 +23,35 @@ import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootApplication
+@Transactional
 public class ProductServiceApplication implements CommandLineRunner {
 
-    private final PriceRepository priceRepository;
-    private final OrderRepository orderRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final PriceRepository priceRepository;
 
-    public ProductServiceApplication(PriceRepository priceRepository,
-                                     OrderRepository orderRepository,
-                                     CategoryRepository categoryRepository,
-                                     ProductRepository productRepository) {
-        this.priceRepository = priceRepository;
-        this.orderRepository = orderRepository;
+    public ProductServiceApplication(CategoryRepository categoryRepository,
+                                     ProductRepository productRepository,
+                                     PriceRepository priceRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
+        this.priceRepository = priceRepository;
     }
+
+//    private final PriceRepository priceRepository;
+//    private final OrderRepository orderRepository;
+//    private final CategoryRepository categoryRepository;
+//    private final ProductRepository productRepository;
+//
+//    public ProductServiceApplication(PriceRepository priceRepository,
+//                                     OrderRepository orderRepository,
+//                                     CategoryRepository categoryRepository,
+//                                     ProductRepository productRepository) {
+//        this.priceRepository = priceRepository;
+//        this.orderRepository = orderRepository;
+//        this.categoryRepository = categoryRepository;
+//        this.productRepository = productRepository;
+//    }
 
 //    private final MentorsRepository mentorsRepository;
 //    private final StudentRepository studentRepository;
@@ -178,23 +192,23 @@ public class ProductServiceApplication implements CommandLineRunner {
 //        }
 
 
-        Price price = new Price();
-        price.setCurrency("INR");
-        price.setValue(100000);
-       // Price savePrice = priceRepository.save(price);
-
-        Category category = new Category();
-        category.setName("Apple devices");
-        Category savedCategory = categoryRepository.save(category);
-
-
-        Product product = new Product();
-        product.setTitle("iphone 15 pro");
-        product.setDescription("Best iphone errrrr");
-        product.setCategory(savedCategory);
-        product.setPrice(price);
-
-       Product savedProduct = productRepository.save(product);
+//        Price price = new Price();
+//        price.setCurrency("INR");
+//        price.setValue(100000);
+//       // Price savePrice = priceRepository.save(price);
+//
+//        Category category = new Category();
+//        category.setName("Apple devices");
+//        Category savedCategory = categoryRepository.save(category);
+//
+//
+//        Product product = new Product();
+//        product.setTitle("iphone 15 pro");
+//        product.setDescription("Best iphone errrrr");
+//        product.setCategory(savedCategory);
+//        product.setPrice(price);
+//
+//       Product savedProduct = productRepository.save(product);
 
     //   productRepository.deleteById(UUID.fromString("9b8af599-5ce1-455a-8374-a125e3a2b09b"));
 
@@ -212,6 +226,85 @@ public class ProductServiceApplication implements CommandLineRunner {
 
 //        Order order = new Order();
 //        orderRepository.save(order);
+
+
+
+
+
+        // test the category product
+//  Category category = new Category();
+//  category.setName("AppleDevice");
+//      Category  savedCategory = categoryRepository.save(category);
+//
+//      Price price = new Price();
+//      price.setValue(1000);
+//      price.setCurrency("INR");
+
+
+//      Optional<Price> optionalPrice =  priceRepository.findById(UUID.fromString("495a1609-d0be-4164-b7cb-b3a1be3b2583"));
+//      if(optionalPrice.isEmpty()){
+//          throw new Exception("Price object is nul");
+//      }
+//      Price price = optionalPrice.get();
+//
+//      Optional<Category>  optionalCategory = categoryRepository.findById(UUID.fromString("b08634be-e2f3-4e0e-a805-02c0ac4199c6"));
+//      if(optionalCategory.isEmpty()){
+//          throw new Exception("category object is null");
+//      }
+//
+//      Category category = optionalCategory.get();
+
+
+      // aor we can set direcly by using parameterized constructor
+//      Product product1 = new Product();
+//        product1.setPrice(price);
+//        product1.setTitle("iphone hai bhai badhia wala");
+//        product1.setDescription("Best iphone ever kehte thhe ");
+//        product1.setImage("IMG1");
+//        product1.setCategory(category);
+//        productRepository.save(product1);
+//
+//       Product savedProduct = productRepository.save(product1);
+//
+//
+//        Price price1 = new Price();
+//        price1.setValue(11100);
+//        price1.setCurrency("INR");
+
+//        Product product2 = new Product();
+//        product2.setPrice(price1);
+//        product2.setTitle("iphone hai bhai le le");
+//        product2.setDescription("keh do mujhe  iphone ever kehte thhe ");
+//        product2.setImage("IMG2");
+//        product2.setCategory(category);
+//        productRepository.save(product2);
+//
+//        Product savedProduct2 = productRepository.save(product2);
+//
+//        Price price2 = new Price();
+//        price2.setValue(9000);
+//        price2.setCurrency("INR");
+
+//        Product product3 = new Product();
+//        product3.setPrice(price2);
+//        product3.setTitle("iphone hai bhai mujhe bhi dilwa le");
+//        product3.setDescription("keh do mujhe teri kadam p chume iphone ever kehte thhe ");
+//        product3.setImage("IMG4");
+//        product3.setCategory(category);
+//        productRepository.save(product3);
+//
+//        Product savedProduct3 = productRepository.save(product3);
+
+        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("60a9a490-dff4-40fa-9953-4789f127ec33"));
+        Category category = optionalCategory.get();
+
+        List<Product> products = category.getProducts();
+
+        for(Product product : products ){
+            System.out.println(product.getTitle());
+        }
+
+
 
     }
 }
