@@ -2,25 +2,17 @@ package com.productservice.productservice;
 
 //import com.productservice.productservice.inheritancerelations.singletable;
 //import com.productservice.productservice.inheritancerelations.tableperclass.*;
-import com.productservice.productservice.inheritancerelations.singletable.*;
-import com.productservice.productservice.inheritancerelations.tableperclass.UserRepository;
-import com.productservice.productservice.model.Category;
-import com.productservice.productservice.model.Order;
-import com.productservice.productservice.model.Price;
+
 import com.productservice.productservice.model.Product;
 import com.productservice.productservice.repositories.CategoryRepository;
-import com.productservice.productservice.repositories.OrderRepository;
 import com.productservice.productservice.repositories.PriceRepository;
 import com.productservice.productservice.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @SpringBootApplication
 @Transactional
@@ -295,16 +287,50 @@ public class ProductServiceApplication implements CommandLineRunner {
 //
 //        Product savedProduct3 = productRepository.save(product3);
 
-        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("60a9a490-dff4-40fa-9953-4789f127ec33"));
-        Category category = optionalCategory.get();
+//        Optional<Category> optionalCategory = categoryRepository.findById(UUID.fromString("60a9a490-dff4-40fa-9953-4789f127ec33"));
+//        Category category = optionalCategory.get();
+//
+//        List<Product> products = category.getProducts();
+//
+//        for(Product product : products ){
+//            System.out.println(product.getTitle());
+//        }
 
-        List<Product> products = category.getProducts();
-
-        for(Product product : products ){
-            System.out.println(product.getTitle());
-        }
-
+        //---------using parametrized constructor putting the value in product
+        //-----as we get the transient instance must be saved before cuurent object wala error ..
+        // .so for tht before we need to intaialize the objet of category than Price and then put the saved
+        // value in the proiduct constructor
 
 
+//        Category category = new Category();
+//        category.setName("smsng");
+//          Category savedCategory = categoryRepository.save(category);
+//
+//        Price price = new Price();
+//        price.setCurrency("INR");
+//        price.setValue(366666);
+//
+//        Price savedPrice = priceRepository.save(price);
+//
+//
+//        //Product product = new Product("Samsung fold", "foldable hai" , "RRR", new Category("smsng",new ArrayList<>()),new Price("INR",3333));
+//        Product product = new Product("Samsung fold", "foldable hai" , "RRR", savedCategory,savedPrice);
+//
+//        productRepository.save(product);
+
+
+        //  *************************************************
+
+        // List<Product> products = productRepository.findAll();
+
+        // List<Product> products = productRepository.findAllByTitle("iphone hai bhai le le");
+
+        // List<Product> products = productRepository.findAllByTitleAndDescription("iphone hai bhai le le","keh do mujhe  iphone ever kehte thhe ");
+
+        //List<Product> products = productRepository.findAllByPrice_ValueGreaterThan(9000);
+
+       // List<Product> products = productRepository.findAllByPrice_ValueLessThan(9000);
+
+        List<Product> products = productRepository.findAllByPrice_ValueBetween(5000,10000);
     }
 }
