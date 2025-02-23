@@ -331,6 +331,6 @@ public class ProductServiceApplication implements CommandLineRunner {
 
        // List<Product> products = productRepository.findAllByPrice_ValueLessThan(9000);
 
-        List<Product> products = productRepository.findAllByPrice_ValueBetween(5000,10000);
+     //  List<Product> products = productRepository.findAllByPrice_ValueBetween(5000,10000);
     }
 }

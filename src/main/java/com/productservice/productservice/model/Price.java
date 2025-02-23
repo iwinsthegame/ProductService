@@ -14,5 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Price extends BaseModel{
     private String currency;
-    private double value;
+     private double value;
 }

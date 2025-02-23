@@ -1,8 +1,14 @@
 package com.productservice.productservice.model;
 
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Getter
@@ -28,8 +34,12 @@ public class Product extends BaseModel {
     @OneToOne(cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private Price price;//similary u cannot create product without price
 
+    private int inventoryCount;
 
-/*  1       1
+
+
+
+    /*  1       1
 * product category cardinality
 * m        1
 *

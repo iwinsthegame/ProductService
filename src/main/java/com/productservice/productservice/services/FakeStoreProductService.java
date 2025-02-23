@@ -7,12 +7,13 @@ import com.productservice.productservice.exception.ProductNotFoundException;
 import com.productservice.productservice.thirdPartyClients.fakeStoreClient.FakeStoreClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+//@Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
     private static final Logger logger = LoggerFactory.getLogger(FakeStoreProductService.class);
